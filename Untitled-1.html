@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Google Play Console Reviews Visualization</title>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script> 
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<style>
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+th, td {
+    text-align: center;
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+th:nth-child(16) {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+</style>
+</head>
+<body>
+<p>This web page is a tool for visualizing user reviews from the Google Play Console. Enter your CSV data, and the page will display the reviews in a table format, allowing you to easily view and analyze the data.</p>
+<div id="chars-visualization"></div>
+<div id="table-container" style="overflow-x: auto;">
+  <table id="myTable">
+    <thead>
+      <tr>
+        <th>Package Name</th>
+        <th>App Version Code</th>
+        <th>App Version Name</th>
+        <th>Reviewer Language</th>
+        <th>Device</th>
+        <th>Review Submit Date and Time</th>
+        <th>Review Submit Millis Since Epoch</th>
+        <th>Review Last Update Date and Time</th>
+        <th>Review Last Update Millis Since Epoch</th>
+        <th>Star Rating</th>
+        <th>Review Title</th>
+        <th>Review Text</th>
+        <th>Developer Reply Date and Time</th>
+        <th>Developer Reply Millis Since Epoch</th>
+        <th>Developer Reply Text</th>
+        <th>Review Link</th>
+      </tr>
+    </thead>
+    <tbody id="myTableBody">
+    </tbody>
+  </table>
+</div>
+<div id="errorDialog" style="display: none;">
+  <p>Error parsing CSV data. Please try again later.</p>
+</div>
+<div id="statistics-section">
+  <h2>Statistics</h2>
+  <p>Average rating: <span id="avg-rating"></span></p>
+  <p>Number of reviews: <span id="num-devices"></span></p>
+</div>
+<div id="pie-chart"></div>
+<script>
+    var csvData = `Package Name,App Version Code,App Version Name,Reviewer Language,Device,Review Submit Date and Time,Review Submit Millis Since Epoch,Review Last Update Date and Time,Review Last Update Millis Since Epoch,Star Rating,Review Title,Review Text,Developer Reply Date and Time,Developer Reply Millis Since Epoch,Developer Reply Text,Review Link
+com.roman-tsisyk.review_tool,390,3.9.0,fr,TECNO-BD2,2023-04-04T20:46:36Z,1680641196146,2023-04-04T20:46:36Z,1680641196146,5,,Cool bonne application mais il faut aussi aider aux gens comme nous.,,,,http://play.google.com/console/developers/8527760436938251586/app/4972168468470348090/user-feedback/review-details?reviewId=ac1bc738-38be-40df-848b-382331332f2c&corpus=PUBLIC_REVIEWS
+com.roman-tsisyk.review_tool,,,fr,rosemary,2023-04-07T13:54:10Z,1680875650733,2023-04-07T13:54:10Z,1680875650733,5,,,,,,
+com.roman-tsisyk.review_tool,390,3.9.0,pt,a11q,2023-04-07T23:45:02Z,1680911102402,2023-04-07T23:45:02Z,1680911102402,5,,,,,,
+com.roman-tsisyk.review_tool,390,3.9.0,fr,TECNO-BD2,2023-04-04T20:46:36Z,1680641196146,2023-04-04T20:46:36Z,1680641196146,5,,Cool bonne application mais il faut aussi aider aux gens comme nous.,,,,http://play.google.com/console/developers/8527760436938251586/app/4972168468470348090/user-feedback/review-details?reviewId=ac1bc738-38be-40df-848b-382331332f2c&corpus=PUBLIC_REVIEWS
+com.roman-tsisyk.review_tool,,,fr,rosemary,2023-04-07T13:54:10Z,1680875650733,2023-04-07T13:54:10Z,1680875650733,5,,,,,,
+com.roman-tsisyk.review_tool,390,3.9.0,pt,a11q,2023-04-07T23:45:02Z,1680911102402,2023-04-07T23:45:02Z,1680911102402,5,,,,,,
+com.roman-tsisyk.review_tool,390,3.9.0,fr,TECNO-BD2,2023-04-04T20:46:36Z,1680641196146,2023-04-04T20:46:36Z,1680641196146,5,,Cool bonne application mais il faut aussi aider aux gens comme nous.,,,,http://play.google.com/console/developers/8527760436938251586/app/4972168468470348090/user-feedback/review-details?reviewId=ac1bc738-38be-40df-848b-382331332f2c&corpus=PUBLIC_REVIEWS
+com.roman-tsisyk.review_tool,,,fr,rosemary,2023-04-07T13:54:10Z,1680875650733,2023-04-07T13:54:10Z,1680875650733,5,,,,,,
+com.roman-tsisyk.review_tool,390,3.9.0,pt,a11q,2023-04-07T23:45:02Z,1680911102402,2023-04-07T23:45:02Z,1680911102402,5,,,,,,`;
+
+     Papa.parse(csvData, {
+      header: true,
+      dynamicTyping: true,
+        error: function(err, file) {
+          console.error("Error parsing CSV data:", err, file);
+          document.getElementById('errorDialog').style.display = 'block';
+        },
+        complete: function(results) {
+          var tableBody = document.getElementById('myTableBody');
+          var data = results.data;
+          createTable(data, tableBody);
+          displayRatingInfo(data);
+          createCharsVisualization(data);
+          createPieChart(data);
+        }
+      });
+    
+    // Function to create the table with the parsed CSV data
+	function createTable(data, tableBody) {
+  data.forEach(function(row) {
+    var tr = document.createElement('tr');
+    for(var key in row) {
+      var td = document.createElement('td');
+      var text;
+
+      // Replace null values with 'N/A'
+      if (row[key] === null) {
+        text = document.createTextNode('N/A');
+      } 
+      // Convert epoch time columns to human-readable format
+      else if (key === 'Review Submit Millis Since Epoch' || key === 'Review Last Update Millis Since Epoch') {
+        text = document.createRange().createContextualFragment(epochToHumanHtml(row[key]));
+      }
+      // Add the hyperlink in the last column
+      else if (key === 'Review Link' && row[key] !== null) {
+        var link = document.createElement('a');
+        link.href = row[key];
+        link.target = '_blank';
+        link.appendChild(document.createTextNode('Link'));
+        td.appendChild(link);
+        // Set the text variable to null to skip appending any additional text node
+        text = null;
+      } else {
+        text = document.createTextNode(row[key]);
+      }
+
+      if (text) {
+        td.appendChild(text);
+      }
+      tr.appendChild(td);
+    }
+    tableBody.appendChild(tr);
+  });
+}
+
+    // Function to calculate and display rating information
+    function displayRatingInfo(data) {
+      var totalReviews = data.length;
+      document.getElementById('num-devices').innerHTML = totalReviews;
+
+      var totalRatings = 0;
+      for (var i = 0; i < data.length; i++) {
+        totalRatings += data[i]['Star Rating'];
+      }
+      var averageRating = (totalRatings / totalReviews).toFixed(1);
+      document.getElementById('avg-rating').innerHTML = averageRating;
+    }
+
+    // Create chars visualization
+function createCharsVisualization(data) {
+      var ratings = [0, 0, 0, 0, 0];
+
+      data.forEach(function (row) {
+        ratings[row['Star Rating'] - 1]++;
+      });
+
+      var trace = {
+        x: ['1 Star', '2 Stars', '3 Stars', '4 Stars', '5 Stars'],
+        y: ratings,
+        type: 'bar'
+      };
+
+      var layout = {
+        title: 'Ratings Distribution',
+        xaxis: { title: 'Rating' },
+        yaxis: { title: 'Number of Reviews' }
+      };
+
+      Plotly.newPlot('chars-visualization', [trace], layout);
+    }
+
+
+    // Function to create a pie chart with the parsed CSV data
+	function epochToHumanHtml(epochTime) {
+  if (!epochTime) {
+    return 'N/A';
+  }
+
+  if (typeof epochTime === 'string' && epochTime.trim() === '') {
+    return epochTime;
+  }
+
+  // Convert epoch time to Date object
+  const dateObj = new Date(epochTime);
+
+  // Get day of the week as a string
+  const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const dayOfWeek = weekdays[dateObj.getDay()];
+
+  // Get month as a string
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const month = months[dateObj.getMonth()];
+
+  // Get hour, minute, and second in 24-hour format with leading zeros
+  const hours = dateObj.getHours().toString().padStart(2, '0');
+  const minutes = dateObj.getMinutes().toString().padStart(2, '0');
+  const seconds = dateObj.getSeconds().toString().padStart(2, '0');
+
+  // Get timezone offset in hours and minutes
+  const timezoneOffsetHours = Math.floor(Math.abs(dateObj.getTimezoneOffset()) / 60).toString().padStart(2, '0');
+  const timezoneOffsetMinutes = Math.abs(dateObj.getTimezoneOffset() % 60).toString().padStart(2, '0');
+
+  // Construct formatted date string
+  const dateString = `${dayOfWeek} ${month} ${dateObj.getDate()} ${dateObj.getFullYear()} ${hours}:${minutes}:${seconds} GMT${dateObj.getTimezoneOffset() < 0 ? '-' : '+'}${timezoneOffsetHours}${timezoneOffsetMinutes}`;
+
+	if (!dateString) {
+    dateString = epochTime;
+  }
+	
+  return dateString;
+}
+	
+	    function createPieChart(data) {
+      var ratings = [0, 0, 0, 0, 0];
+
+      data.forEach(function(row) {
+        ratings[row['Star Rating'] - 1]++;
+      });
+
+      var trace = {
+        values: ratings,
+        labels: ['1 Star', '2 Stars', '3 Stars', '4 Stars', '5 Stars'],
+        type: 'pie'
+      };
+
+      var layout = {
+        title: 'Ratings Distribution'
+      };
+
+      Plotly.newPlot('pie-chart', [trace], layout);
+    }
+	
+    // Call the parseCSVData function to start processing the data
+    parseCSVData();
+
+  </script>
+</body>
+</html>
