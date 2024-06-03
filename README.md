@@ -1,27 +1,112 @@
-# Google Play Console Reviews Visualization Tool
+Below is an updated version of your README (in Markdown format) with an added section that displays a screenshot. You can adjust the image path as needed (for example, if you store the image in an `assets` or `images` folder):
 
-This web application is designed to help app developers efficiently analyze user reviews from the Google Play Console. By displaying app reviews in a table format along with statistics and charts, developers can easily gain insights from their user feedback.
+---
+
+```markdown
+# Google Play Console Reviews Visualization
+
+This web project is a tool for visualizing user reviews from the Google Play Console. The page displays the reviews in a table format, along with various charts for easy data analysis. The user can enter CSV data to populate the table and charts.
+
+## Table of Contents
+- [Live Demo](#live-demo)
+- [Getting Started](#getting-started)
+- [Features](#features)
+- [File Structure](#file-structure)
+- [Technologies Used](#technologies-used)
+- [How to Use](#how-to-use)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Live Demo
+Check out the live demo of the project [here](#).
+
+### Screenshot
+![Play Console Reviews Visualization](Play%20Console%20Reviews%20Visualization.png)
+
+## Getting Started
+To get started with the project, clone this repository to your local machine:
+
+```bash
+git clone https://github.com/RomanTsisyk/google-play-reviews-visualization.git
+```
+
+Navigate to the project directory:
+
+```bash
+cd google-play-reviews-visualization
+```
+
+Open `index.html` in your preferred web browser to view and interact with the project.
 
 ## Features
+- Displays Google Play Console reviews in a table format.
+- Visualizes data through various charts:
+  - Pie Chart
+  - Histogram
+  - Line Chart
+  - Heatmap
+  - Bubble Chart
+  - Scatter Plot
+  - Box Plot
+  - Bar Chart
+  - Donut Chart
+- Calculates and displays statistics such as average rating and number of reviews.
 
--   Display reviews in a table format
--   Calculate and display average rating
--   Show the number of reviews
--   Visualize ratings distribution using a bar chart and a pie chart
+## File Structure
+The project has the following file structure:
+
+```
+google-play-reviews-visualization/
+│
+├── index.html
+└── README.md
+```
+
+## Technologies Used
+- HTML
+- CSS
+- JavaScript
+- [PapaParse](https://www.papaparse.com/) – for parsing CSV data
+- [Plotly](https://plotly.com/javascript/) – for data visualization
 
 ## How to Use
+1. Open `index.html` in your web browser.
+2. Enter or upload your CSV data in the designated area.
+3. The table will populate with the review data.
+4. The charts will update automatically to visualize the data.
+5. View the statistics section for insights like the average rating and total number of reviews.
 
-1.  Export your app's reviews in CSV format from the Google Play Console
-2.  Insert the CSV data into the HTML file
-3.  Host the HTML file on a local or remote web server
-4.  Access the web application in your browser
+### Example CSV Format
+Ensure your CSV file has the following headers:
 
-## Customization
+```
+Package Name,App Version Code,App Version Name,Reviewer Language,Device,Review Submit Date and Time,Review Submit Millis Since Epoch,Review Last Update Date and Time,Review Last Update Millis Since Epoch,Star Rating,Review Title,Review Text,Developer Reply Date and Time,Developer Reply Millis Since Epoch,Developer Reply Text,Review Link
+```
 
-The tool is open-source and free to use, modify, or distribute. You can customize the appearance and functionality by editing the HTML, CSS, or JavaScript code.
+## Contributing
+Contributions are welcome! Please fork the repository and create a pull request with your changes. Ensure your code follows the existing style and conventions.
 
-## Feedback
+1. Fork the repository.
+2. Create a new branch:  
+   `git checkout -b feature-branch`
+3. Commit your changes:  
+   `git commit -am 'Add new feature'`
+4. Push to the branch:  
+   `git push origin feature-branch`
+5. Create a new Pull Request.
 
-We hope you find this tool helpful for analyzing your app's user reviews! Feel free to share your thoughts and feedback by creating an issue or submitting a pull request.
+## License
+This project is licensed under the MIT License. See the LICENSE file for more details.
+```
 
-![App Screenshot](https://github.com/RomanTsisyk/Google-Play-Console-Reviews-Visualization-Tool/blob/main/screenshot.png)
+---
+
+### Explanation
+
+- **Screenshot Section:**  
+  A new section called **"Screenshot"** has been added right after the Live Demo section. The Markdown syntax `![Play Console Reviews Visualization](Play%20Console%20Reviews%20Visualization.png)` will render the image. Adjust the file path as necessary if your image is stored elsewhere.
+
+- **Rest of the README:**  
+  The rest of your README remains the same with sections for Getting Started, Features, File Structure, etc.
+
+You can now commit this updated README file to your repository.
