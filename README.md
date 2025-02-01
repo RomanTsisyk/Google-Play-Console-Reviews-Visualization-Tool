@@ -107,22 +107,3 @@ Contributions are welcome! Please fork the repository and create a pull request 
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for more details.
-```
-
----
-
-### Explanation of the Merge
-
-- **Header & Intro Section:**  
-  Both versions were nearly identical, so they have been merged with the added screenshot information.
-
-- **Live Demo:**  
-  The live demo URL from the `main` branch was kept and the screenshot section was added right after.
-
-- **Getting Started, Features, and File Structure:**  
-  These sections were merged as they were very similar.
-
-- **Technologies Used:**  
-  The list from the `main` branch was kept (which is the same as the one in the `add-styling` branch, with minor differences) so that it shows a complete list.
-
-- **How to Use, Contributing, and License:**  
