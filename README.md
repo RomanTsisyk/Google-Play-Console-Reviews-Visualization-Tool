@@ -1,8 +1,3 @@
-Below is an updated version of your README (in Markdown format) with an added section that displays a screenshot. You can adjust the image path as needed (for example, if you store the image in an `assets` or `images` folder):
-
----
-
-```markdown
 # Google Play Console Reviews Visualization
 
 This web project is a tool for visualizing user reviews from the Google Play Console. The page displays the reviews in a table format, along with various charts for easy data analysis. The user can enter CSV data to populate the table and charts.
@@ -18,27 +13,30 @@ This web project is a tool for visualizing user reviews from the Google Play Con
 - [License](#license)
 
 ## Live Demo
-Check out the live demo of the project [here](#).
+
+Check out the live demo of the project [here](https://roman-tsisyk.com/Google-Play-Console-Reviews-Visualization-Tool/).
 
 ### Screenshot
 ![Play Console Reviews Visualization](Play%20Console%20Reviews%20Visualization.png)
 
 ## Getting Started
+
 To get started with the project, clone this repository to your local machine:
 
-```bash
+```sh
 git clone https://github.com/RomanTsisyk/google-play-reviews-visualization.git
 ```
 
 Navigate to the project directory:
 
-```bash
+```sh
 cd google-play-reviews-visualization
 ```
 
 Open `index.html` in your preferred web browser to view and interact with the project.
 
 ## Features
+
 - Displays Google Play Console reviews in a table format.
 - Visualizes data through various charts:
   - Pie Chart
@@ -53,6 +51,7 @@ Open `index.html` in your preferred web browser to view and interact with the pr
 - Calculates and displays statistics such as average rating and number of reviews.
 
 ## File Structure
+
 The project has the following file structure:
 
 ```
@@ -63,6 +62,7 @@ google-play-reviews-visualization/
 ```
 
 ## Technologies Used
+
 - HTML
 - CSS
 - JavaScript
@@ -70,6 +70,7 @@ google-play-reviews-visualization/
 - [Plotly](https://plotly.com/javascript/) – for data visualization
 
 ## How to Use
+
 1. Open `index.html` in your web browser.
 2. Enter or upload your CSV data in the designated area.
 3. The table will populate with the review data.
@@ -77,6 +78,7 @@ google-play-reviews-visualization/
 5. View the statistics section for insights like the average rating and total number of reviews.
 
 ### Example CSV Format
+
 Ensure your CSV file has the following headers:
 
 ```
@@ -84,29 +86,43 @@ Package Name,App Version Code,App Version Name,Reviewer Language,Device,Review S
 ```
 
 ## Contributing
+
 Contributions are welcome! Please fork the repository and create a pull request with your changes. Ensure your code follows the existing style and conventions.
 
 1. Fork the repository.
-2. Create a new branch:  
-   `git checkout -b feature-branch`
-3. Commit your changes:  
-   `git commit -am 'Add new feature'`
-4. Push to the branch:  
-   `git push origin feature-branch`
+2. Create a new branch:
+   ```sh
+   git checkout -b feature-branch
+   ```
+3. Commit your changes:
+   ```sh
+   git commit -am 'Add new feature'
+   ```
+4. Push to the branch:
+   ```sh
+   git push origin feature-branch
+   ```
 5. Create a new Pull Request.
 
 ## License
+
 This project is licensed under the MIT License. See the LICENSE file for more details.
 ```
 
 ---
 
-### Explanation
+### Explanation of the Merge
 
-- **Screenshot Section:**  
-  A new section called **"Screenshot"** has been added right after the Live Demo section. The Markdown syntax `![Play Console Reviews Visualization](Play%20Console%20Reviews%20Visualization.png)` will render the image. Adjust the file path as necessary if your image is stored elsewhere.
+- **Header & Intro Section:**  
+  Both versions were nearly identical, so they have been merged with the added screenshot information.
 
-- **Rest of the README:**  
-  The rest of your README remains the same with sections for Getting Started, Features, File Structure, etc.
+- **Live Demo:**  
+  The live demo URL from the `main` branch was kept and the screenshot section was added right after.
 
-You can now commit this updated README file to your repository.
+- **Getting Started, Features, and File Structure:**  
+  These sections were merged as they were very similar.
+
+- **Technologies Used:**  
+  The list from the `main` branch was kept (which is the same as the one in the `add-styling` branch, with minor differences) so that it shows a complete list.
+
+- **How to Use, Contributing, and License:**  
