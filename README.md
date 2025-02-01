@@ -3,7 +3,6 @@
 This web project is a tool for visualizing user reviews from the Google Play Console. The page displays the reviews in a table format, along with various charts for easy data analysis. The user can enter CSV data to populate the table and charts.
 
 ## Table of Contents
-
 - [Live Demo](#live-demo)
 - [Getting Started](#getting-started)
 - [Features](#features)
@@ -16,6 +15,9 @@ This web project is a tool for visualizing user reviews from the Google Play Con
 ## Live Demo
 
 Check out the live demo of the project [here](https://roman-tsisyk.com/Google-Play-Console-Reviews-Visualization-Tool/).
+
+### Screenshot
+![Play Console Reviews Visualization](Play%20Console%20Reviews%20Visualization.png)
 
 ## Getting Started
 
@@ -64,8 +66,8 @@ google-play-reviews-visualization/
 - HTML
 - CSS
 - JavaScript
-- [PapaParse](https://www.papaparse.com/) - for parsing CSV data
-- [Plotly](https://plotly.com/javascript/) - for data visualization
+- [PapaParse](https://www.papaparse.com/) – for parsing CSV data
+- [Plotly](https://plotly.com/javascript/) – for data visualization
 
 ## How to Use
 
@@ -88,11 +90,39 @@ Package Name,App Version Code,App Version Name,Reviewer Language,Device,Review S
 Contributions are welcome! Please fork the repository and create a pull request with your changes. Ensure your code follows the existing style and conventions.
 
 1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-branch`).
-3. Commit your changes (`git commit -am 'Add new feature'`).
-4. Push to the branch (`git push origin feature-branch`).
+2. Create a new branch:
+   ```sh
+   git checkout -b feature-branch
+   ```
+3. Commit your changes:
+   ```sh
+   git commit -am 'Add new feature'
+   ```
+4. Push to the branch:
+   ```sh
+   git push origin feature-branch
+   ```
 5. Create a new Pull Request.
 
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for more details.
+```
+
+---
+
+### Explanation of the Merge
+
+- **Header & Intro Section:**  
+  Both versions were nearly identical, so they have been merged with the added screenshot information.
+
+- **Live Demo:**  
+  The live demo URL from the `main` branch was kept and the screenshot section was added right after.
+
+- **Getting Started, Features, and File Structure:**  
+  These sections were merged as they were very similar.
+
+- **Technologies Used:**  
+  The list from the `main` branch was kept (which is the same as the one in the `add-styling` branch, with minor differences) so that it shows a complete list.
+
+- **How to Use, Contributing, and License:**  
